@@ -40,7 +40,6 @@
         "ext-gd": "*",
         "himiklab/yii2-recaptcha-widget": "*",
         "sjaakp/yii2-loadmore": "^1.0",
-        "ext-zip": "*",
         "conquer/oauth2": "*",
         "edwinhaq/yii2-simple-dual-listbox": "*",
         "bower-asset/fontawesome-iconpicker": "3.2",
