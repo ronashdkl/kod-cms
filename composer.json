@@ -1,5 +1,5 @@
 {
-    "name": "ronashdkl/kod-cms",
+    "name": "ronashdkl/kod-cms-core",
     "description": "Yii2 based content management system. Easily make any site dynamic with in min.",
     "keywords": ["yii2", "CMS", "kodCms"],
     "version": "v1.0.0",
