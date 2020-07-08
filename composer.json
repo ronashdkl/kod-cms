@@ -4,7 +4,6 @@
     "keywords": ["yii2", "CMS", "kodCms"],
     "version": "v1.0.0",
     "homepage": "https://www.kodknackare.nu/kodCms",
-    "type": "project",
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "require": {
