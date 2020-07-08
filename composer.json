@@ -12,7 +12,7 @@
         "yiisoft/yii2-bootstrap4": "2.0.6",
         "yiisoft/yii2-swiftmailer": "2.0.0 || 2.1.0",
         "dektrium/yii2-user": "0.9.14",
-        "kop/yii2-scroll-pager": "dev-master",
+        "kop/yii2-scroll-pager": "2.7.2",
         "johnitvn/yii2-ajaxcrud": "*",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "yiisoft/yii2-imagine": "^2.2",
