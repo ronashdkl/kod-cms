@@ -1,0 +1,9 @@
+RewriteEngine On RewriteBase /
+
+# hide files and folders
+RedirectMatch 404 /src
+RedirectMatch 404 /index-test.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . index.php

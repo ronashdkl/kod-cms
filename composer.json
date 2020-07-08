@@ -1,0 +1,102 @@
+{
+    "name": "ronashdkl/kod-cms",
+    "description": "Yii2 based content management system. Easily make any site dynamic with in min.",
+    "keywords": ["yii2", "CMS", "kodCms"],
+    "version": "v1.0.0",
+    "homepage": "https://www.kodknackare.nu/kodCms",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.3",
+        "yiisoft/yii2": "2.0.29",
+        "yiisoft/yii2-bootstrap4": "2.0.6",
+        "yiisoft/yii2-swiftmailer": "2.0.0 || 2.1.0",
+        "dektrium/yii2-user": "0.9.14",
+        "kop/yii2-scroll-pager": "dev-master",
+        "johnitvn/yii2-ajaxcrud": "*",
+        "kartik-v/yii2-widget-fileinput": "@dev",
+        "yiisoft/yii2-imagine": "^2.2",
+        "kartik-v/yii2-tree-manager": "@dev",
+        "yidas/yii2-adminlte": "^2.2",
+        "dektrium/yii2-rbac": "1.0.0-alpha@dev",
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "alexantr/yii2-elfinder": "1.7",
+        "2amigos/yii2-ckeditor-widget": "2.1",
+        "kartik-v/yii2-editable": "*",
+        "kartik-v/yii2-widget-rating": "*",
+        "lysenkobv/yii2-geoip": "1.0",
+        "skeeks/yii2-google-api": "*",
+        "loveorigami/yii2-plugins-system": "^3.1",
+        "loveorigami/yii2-shortcodes-pack": "^1.3",
+        "loveorigami/yii2-notification-wrapper": "*",
+        "bower-asset/noty": "2.3",
+        "bower-asset/jquery-growl": "1.3",
+        "creocoder/yii2-flysystem": "0.9.3",
+        "alexantr/yii2-ace": "1.1",
+        "kdn/yii2-json-editor": "2.2",
+        "ext-json": "*",
+        "codemix/yii2-localeurls": "1.7",
+        "lajax/yii2-translate-manager": "1.7",
+        "ext-gd": "*",
+        "himiklab/yii2-recaptcha-widget": "*",
+        "sjaakp/yii2-loadmore": "^1.0",
+        "ext-zip": "*",
+        "conquer/oauth2": "*",
+        "edwinhaq/yii2-simple-dual-listbox": "*",
+        "bower-asset/fontawesome-iconpicker": "3.2",
+        "skeeks/yii2-assets-auto-compress": "*",
+        "bower-asset/sticky-sidebar": "^3.3"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "2.1.0",
+        "yiisoft/yii2-gii": "2.1.0",
+        "yiisoft/yii2-faker": "2.0.0",
+        "codeception/base": "2.3.0",
+        "codeception/verify": "0.4.0",
+        "codeception/specify": "0.4.6",
+        "symfony/browser-kit": ">=2.7 <=4.2.4"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+        "yii\\composer\\Installer::postInstall": {
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ronashdkl\\kodCms\\": "src"
+        }
+    }
+}

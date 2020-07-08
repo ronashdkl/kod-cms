@@ -1,0 +1,175 @@
+<?php
+
+$params = require __DIR__ . '/params.php';
+$db = require __DIR__ . '/db.php';
+
+
+$config = [
+    'id' => 'ronashcms',
+    'name' => 'Ronash CMS',
+    'language' => 'sv',
+    'timeZone' => 'Asia/Kathmandu',
+    'basePath' => dirname(__DIR__),
+    'defaultRoute' => 'site',
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm' => '@vendor/npm-asset'
+    ],
+    'components' => [
+         'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'encryption' => 'tls',
+                'host' => 'HOST',
+                'port' => 'PORT',
+                'username' => 'USERNAME',
+                'password' => 'PASSWORD',
+            ],
+        ],
+
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'locale' => 'sv-SE',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => '.',
+            'currencyCode' => 'sek',
+        ],
+
+        'view' => [
+            'params' => [
+                'audio' => function ($v) {
+                    return new \ronashdkl\kodCms\models\sound\SoundModel();
+                },
+                'page' => null,
+                'pages' => function () {
+                    return Post::find()->select('title, slug')->where(['tree_id' => 1])->published()->asArray()->all();
+                },
+                'header_type' => 'header',
+                'config' => function ($path = null) {
+
+                    $site = Yii::$app->appData->siteData;
+                    if ($path == null) {
+                        return $site;
+                    }
+                    if ($site->hasProperty($path)) {
+                        return $site->{$path};
+
+                    } else {
+                        throw new \ronashdkl\kodCms\modules\admin\exceptions\PropertyException($path . " is not property of " . $site->nameOfClass);
+                    }
+                },
+                'social' => function ($social) {
+                    if ($social == 'facebook') {
+                        return Yii::$app->appData->facebook;
+
+                    } elseif ($social == 'linkedin') {
+                        return Yii::$app->appData->linkedin;
+                    } elseif ($social == 'instagram') {
+                        return Yii::$app->appData->instagram;
+                    }
+                },
+                'seo' => function ($attribute) {
+                    if (YII_APP_ID == 2) {
+                        return null;
+                    }
+                    $seo = Yii::$app->appData->seo;
+                    if ($seo->hasProperty($attribute)) {
+                        return $seo->{$attribute};
+                    } else {
+                        throw new \ronashdkl\kodCms\modules\admin\exceptions\PropertyException($attribute . " is not property of " . $seo->nameOfClass);
+                    }
+
+                }
+            ]
+        ],
+
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'cookieValidationKey' => 'validaion',
+        ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+
+        'errorHandler' => [
+            'errorAction' => 'site/error',
+        ],
+      
+
+
+        'db' => $db,
+        'reCaptcha' => [
+            'siteKeyV2' => 'KEY',
+             'secretV2' => 'SECRET',
+        ],
+        'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            //'class' => \yii\web\UrlManager::class,
+            'enableDefaultLanguageUrlCode' => true,
+            // List all supported languages here
+            // Make sure, you include your app's default language.
+            'languages' => ['sv'],
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'info/<slug>' => 'page/index',
+            ],
+            'ignoreLanguageUrlPatterns' => [
+                // route pattern => url pattern
+                '#^translatemanager/#' => '#^translatemanager/#',
+                '#^oauth2/#' => '#^oauth2/#',
+                '#^web-api/#' => '#^web-api/#',
+                '#^media/#' => '#^media/#',
+                '#^api/#' => '#^api/#',
+                '#^auth/#' => '#^auth/#',
+                '#^user/#' => '#^user/#',
+                '#^admin/log/#' => '#^admin/log/#',
+                '#^admin/api/#' => '#^admin/api/#',
+                '#^contact/send#' => '#^contact/send#',
+            ]
+        ],
+
+        'i18n' => [
+            'translations' => [
+                'conquer/oauth2' => [
+                    'class' => \yii\i18n\PhpMessageSource::class,
+                    'basePath' => '@conquer/oauth2/messages',
+                ],
+                '*' => [
+                    'class' => 'yii\i18n\DbMessageSource',
+                    'db' => 'db',
+                    'sourceLanguage' => 'en',
+                    'sourceMessageTable' => '{{%language_source}}',
+                    'messageTable' => '{{%language_translate}}',
+                    'cachingDuration' => 86400,
+                    'enableCaching' => false,
+
+                ],
+            ],
+        ],
+
+    ],
+    'controllerMap' => $frontend_controllerMap,
+    'params' => $params,
+];
+
+if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        //'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        //'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
+}
+
+return $config;

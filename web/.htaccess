@@ -1,0 +1,16 @@
+# Deny access to filenames starting with dot(.)
+<FilesMatch "^\.ssh">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine On
+
+RedirectMatch 404 ^/src/?$
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.ssh
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php

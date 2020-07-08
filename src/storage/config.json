@@ -1,0 +1,27 @@
+{
+  "site": {
+    "name": "MCC",
+    "slogan": "",
+    "phone": "46123456789",
+    "email": "info@site.com",
+    "opening_time": "Mon-Sat 8am - 6pm"
+  },
+  "seo": {
+    "meta_title": null,
+    "meta_keyword": null,
+    "meta_search": null,
+    "meta_description": null
+  },
+  "social": {
+    "facebook": {
+      "url": null,
+      "page_id": null,
+      "code": null
+    },
+    "linkedin": {
+      "url": null,
+      "page_id": null,
+      "code": null
+    }
+  }
+}

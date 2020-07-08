@@ -1,0 +1,17 @@
+<?php
+/* @var $this \yii\web\View */
+
+?>
+
+<?=$this->render('partial/navigation')?>
+<?=$this->render('partial/search')?>
+<?=$this->render('partial/logo')?>
+<?=$this->render('partial/extras')?>
+<?=$this->render('partial/trigger')?>
+
+
+public function run()
+{
+    parent::run();
+    return $this->render('index');
+}
