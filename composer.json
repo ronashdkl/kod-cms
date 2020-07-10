@@ -2,7 +2,7 @@
     "name": "ronashdkl/kod-cms-core",
     "description": "Yii2 based content management system. Easily make any site dynamic with in min.",
     "keywords": ["yii2", "CMS", "kodCms"],
-    "version": "v1.0.0",
+    "version": "dev-master",
     "homepage": "https://www.kodknackare.nu/kodCms",
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",

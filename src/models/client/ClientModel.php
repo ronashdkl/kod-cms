@@ -4,12 +4,13 @@
 namespace ronashdkl\kodCms\models\client;
 
 
+use ronashdkl\kodCms\components\FieldConfig;
 use ronashdkl\kodCms\models\BaseModel;
 use yii\helpers\ArrayHelper;
 
 class ClientModel extends BaseModel
 {
-    protected $loadFromDb = true;
+    protected $loadFromDb = false;
     protected $isMultilanguage = false;
     public $listAttribute = 'list';
     public $listClass = ClientListModel::class;
@@ -18,6 +19,21 @@ class ClientModel extends BaseModel
 
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(), [['list', 'safe']]);
+        return [
+            ['title','safe'],
+            ['list', 'safe']
+        ];
+    }
+
+    public function formTypes()
+    {
+        return [
+            'title' => [
+                // 'value' => $this->text,
+                'type' => FieldConfig::INPUT,
+            ],
+        ];
+
+
     }
 }

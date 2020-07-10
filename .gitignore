@@ -14,6 +14,8 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
+/clientAssets
+/template
 
 # composer itself is not needed
 composer.phar

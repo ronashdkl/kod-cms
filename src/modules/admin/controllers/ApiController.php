@@ -95,7 +95,7 @@ class ApiController extends \yii\rest\Controller
             $query = new Query;
             $query->select('title as text,slug as id')
                 ->from('post')
-                ->where(['tree_id'=>AppData::PAGE])
+                //->where(['tree_id'=>AppData::PAGE])
                 ->andFilterWhere(['like', 'title', $q])
                 ->orWhere(['=','id',$q])
                 ->limit(10);

@@ -21,28 +21,12 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
-       'web/css/bootstrap.min.css',
-        'web/css/animate.css',
-        'web/css/font-awesome.min.css',
-        'web/css/hover-min.css',
-        'web/css/responsive.css',
-        'web/css/themify-icons.css',
-        'web/css/custom_design.css',
-        'web/css/responsive.css',
+        'css/kodCms.css'
     ];
 
     public $js = [
-        'web/js/tooltip.js',
-        'web/js/popper.js',
-       'web/js/bootstrap.min.js',
-        'web/js/wow.min.js',
-        'web/js/calculator.js',
-        //'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.sw.min.js',
-        'web/js/custom.js',
+        'js/kodCms.js'
     ];
 
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
-    ];
+    public $depends = [];
 }

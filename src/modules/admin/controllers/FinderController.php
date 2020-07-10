@@ -40,8 +40,8 @@ class FinderController extends Controller
                     'roots' => [
                         [
                             'driver' => 'LocalFileSystem',
-                            'path' => Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'web',
-                            'URL' => Yii::$app->request->baseUrl."/web/",
+                            'path' => Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'media',
+                            'URL' => Yii::$app->request->baseUrl."/media/",
                             'mimeDetect' => 'internal',
                             'imgLib' => 'gd',
                             'accessControl' => function ($attr, $path) {

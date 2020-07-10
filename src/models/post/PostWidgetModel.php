@@ -9,6 +9,7 @@ use ronashdkl\kodCms\models\BaseModel;
 use ronashdkl\kodCms\widgets\WidgetList;
 use edwinhaq\simpleduallistbox\SimpleDualListbox;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 class PostWidgetModel extends BaseModel
 {
@@ -17,6 +18,7 @@ class PostWidgetModel extends BaseModel
     public $page_top_content;
     public $page_bottom_content;
     public $isMultilanguage = false;
+    public $loadFromDb = false;
 
     public function init()
     {
@@ -40,7 +42,7 @@ class PostWidgetModel extends BaseModel
 
     public function formTypes()
     {
-        $items = WidgetList::getAll();
+        $items = \Yii::$app->widgetList->getAll();
         $options = [];
         $options['size'] = 20;
         //  $options['style'] = 'width:200px';

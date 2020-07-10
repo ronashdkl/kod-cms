@@ -23,4 +23,5 @@ class FieldConfig
     const DATE = "date";
     const LISTBOX = "lisbox";
     const ICON = "icon";
+    const TEXTAREA = "textarea";
 }

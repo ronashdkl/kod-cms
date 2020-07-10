@@ -37,7 +37,7 @@ abstract class AdminSiteController extends BaseController
     {
         parent::init();
         $this->loadModel();
-        $this->viewPath = \Yii::getAlias('@app/modules/admin/views/admin-site');
+        $this->viewPath = \Yii::getAlias('@kodCms/modules/admin/views/admin-site');
         $this->view->title = ucfirst($this->id);
     }
 

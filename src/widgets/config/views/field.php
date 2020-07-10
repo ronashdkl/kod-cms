@@ -28,14 +28,23 @@ foreach ($fields as $key => $field) {
             $field['config'] = [];
         }
         switch ($field['type']) {
+            case $config::TEXTAREA:
+                echo $form->field($model, $key)->textarea()->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
+                break;
             case $config::DATE:
                 echo $form->field($model, $key)->widget(\yii\jui\DatePicker::className(), [
                     'language' => 'sv',
                     'dateFormat' => 'yyyy/MM/dd'
-                ]);
+                ])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::COLOR:
-                echo $form->field($model, $key)->textInput(['type' => 'color', 'style' => ['width' => '52px'], $field['config']]);
+                echo $form->field($model, $key)->textInput(['type' => 'color', 'style' => ['width' => '52px'], $field['config']])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::INPUT:
                 /* if(!empty($language)){
@@ -46,18 +55,25 @@ foreach ($fields as $key => $field) {
                      echo $form->field($model, $key)->textInput($field['config']);
 
                  }*/
-                echo $form->field($model, $key)->textInput($field['config']);
+                echo $form->field($model, $key)->textInput($field['config'])->label($field['label']??null);
 
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
 
                 break;
             case $config::SELECT:
-                echo $form->field($model, $key)->widget(\kartik\select2\Select2::className(), $field['config']);
+                echo $form->field($model, $key)->widget(\kartik\select2\Select2::className(), $field['config'])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::RADIO:
-                echo $form->field($model, $key)->radioList($field['data']);
+                echo $form->field($model, $key)->radioList($field['data'])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::CHECKBOX:
-                echo $form->field($model, $key)->checkboxList($field['data']);
+                echo $form->field($model, $key)->checkboxList($field['data'])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::IMAGE:
                 echo $form->field($model, $key)
@@ -74,12 +90,13 @@ foreach ($fields as $key => $field) {
                             }
                             return $html;
                         },
-                    ]);
+                    ])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::CKEDITOR:
-                $this->registerJs("CKEDITOR.plugins.addExternal('btgrid', '/web/ckeditor/btgrid/plugin.js', '');");
-                $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckeditor/imageresponsive/plugin.js', '');");
-
+                $this->registerJs("CKEDITOR.plugins.addExternal('btgrid', '/ckeditor/btgrid/plugin.js', '');");
+                $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/ckeditor/imageresponsive/plugin.js', '');");
                 echo $form->field($model, $key)
                     ->widget(\dosamigos\ckeditor\CKEditor::className(), [
                         'options' => ['rows' => 6],
@@ -91,13 +108,15 @@ foreach ($fields as $key => $field) {
                             'filebrowserImageBrowseUrl' => yii\helpers\Url::to(['finder/ckeditor', 'filter' => 'image']),
                             'extraPlugins' => 'btgrid,imageresponsive',
                         ]
-                    ]);
+                    ])->label($field['label']??null);
+                echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
+
                 break;
             case $config::CODE:
 
                 echo $form->field($model, $key)->widget(alexantr\ace\Ace::className(), [
                     'mode' => isset($field['mode']) ? $field['mode'] : 'html',
-                    'theme' => isset($field['theme']) ? $field['theme'] : 'cloud',
+                    'theme' => isset($field['theme']) ? $field['theme'] : 'github',
                     'clientOptions' => [
                         'fontSize' => isset($field['font_size']) ? $field['font_size'] : '14',
                         'useSoftTabs' => true,
@@ -106,7 +125,7 @@ foreach ($fields as $key => $field) {
                     'containerOptions' => [
                         'style' => 'min-height:150px', // ...or this style
                     ],
-                ]);
+                ])->label($field['label']??null);
                 echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
                 break;
             case $config::JSON:
@@ -125,16 +144,16 @@ foreach ($fields as $key => $field) {
                     //'name' => $model->nameOfClass.'Json', // hidden input name
                     'options' => ['id' => 'data'], // HTML options for hidden input
                     //'value' =>$model->JsonData, // JSON which should be shown in editor
-                ]);
+                ])->label($field['label']??null);
                 echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
                 break;
 
             case $config::LISTBOX:
-                echo $form->field($model, $key)->widget(\edwinhaq\simpleduallistbox\SimpleDualListbox::class, $field['config']);
+                echo $form->field($model, $key)->widget(\edwinhaq\simpleduallistbox\SimpleDualListbox::class, $field['config'])->label($field['label']??null);
                 echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
                 break;
             case $config::ICON:
-                echo $form->field($model, $key)->textInput($field['config']);
+                echo $form->field($model, $key)->textInput($field['config'])->label($field['label']??null);
                 echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;
                 break;
         }

@@ -1,6 +1,7 @@
 <?php
 
 // comment out the following two lines when deployed to production
+
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 defined('YII_APP_ID');
@@ -27,6 +28,7 @@ if(in_array($RT[0],['translatemanager'])) {
   define('YII_APP_ID', 1);
 }
 $config = require __DIR__ . '/../src/config/web.php';
+
 (new \ronashdkl\kodCms\base\Application($config))->run();
 
 

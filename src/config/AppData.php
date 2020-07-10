@@ -2,6 +2,7 @@
 
 namespace ronashdkl\kodCms\config;
 
+use ronashdkl\kodCms\helpers\HookActions;
 use ronashdkl\kodCms\models\contact\MapModel;
 use ronashdkl\kodCms\models\language\LanguageModel;
 use ronashdkl\kodCms\models\post\PostWidgetModel;
@@ -16,10 +17,11 @@ use ronashdkl\kodCms\widgets\PageMenuWidget;
 use ronashdkl\kodCms\widgets\WidgetList;
 use Yii;
 use yii\base\Component;
+use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
-class AppData extends Component
+ class AppData extends Component
 {
     const SERVICES = 1; //map from db
     const TICKET = 2; //map from db
@@ -27,7 +29,6 @@ class AppData extends Component
     const CLIENT = 6; //map from db
     const Portfolio = 5; //map from db
     const TESTIMONIAL = 7; //map from db
-
 
     private $logs;
     public $seo;
@@ -46,13 +47,12 @@ class AppData extends Component
             $this->logs = Log::find()->limit(4)->orderBy('id desc')->asArray()->all();
 
         } else {
-            $this->seo = new SeoModel();
-            $this->facebook = new FacebookModel();
-            $this->linkedin = new LinkedinModel();
-            $this->instagram = new InstagramModel();
-            $this->map = new MapModel();
-            $this->widgets = new PostWidgetModel();
-
+            $this->seo = SeoModel::getInstance();
+            $this->facebook = FacebookModel::getInstance();
+            $this->linkedin = LinkedinModel::getInstance();
+            $this->instagram = InstagramModel::getInstance();
+            $this->map = MapModel::getInstance();
+            $this->widgets = PostWidgetModel::getInstance();
 
         }
         $this->siteData = new SiteModel();
@@ -92,7 +92,7 @@ class AppData extends Component
     public function registerPageWidget()
     {
         if(Yii::$app->response->statusCode == 200) {
-            $widgetList = WidgetList::getAll();
+            $widgetList = Yii::$app->widgetList->getAll();
             $selectedWidgets = ['top' => [], 'bottom' => []];
             foreach ($this->widgets->page_top_content as $top) {
 
@@ -119,10 +119,21 @@ class AppData extends Component
         }
     }
 
+    public function registerHomeWidgetV1()
+    {
+        if(Yii::$app->response->statusCode == 200 && Yii::$app->hooks->has_action(HookActions::RENDER_WIDGET)) {
+          //  $selectedWidgets = [];
+            Yii::$app->getView()->beginBlock('top_content');
+            Yii::$app->hooks->do_action(HookActions::RENDER_WIDGET);
+            Yii::$app->getView()->endBlock();
+        }
+    }
+
     public function registerHomeWidget()
     {
         if(Yii::$app->response->statusCode == 200) {
-        $widgetList = WidgetList::getAll();
+
+            $widgetList = Yii::$app->widgetList->getAll();
         $selectedWidgets = [];
         foreach ($this->widgets->home_page_content as $top) {
             $selectedWidgets[] = $widgetList[$top];
@@ -136,8 +147,8 @@ class AppData extends Component
                     echo PageMenuWidget::widget([
                         'list' => $selectedWidgets
                     ]);
-                } else {
-                    echo $content::widget();
+                } else {;
+                  echo $content::widget();
                 }
             }
             Yii::$app->getView()->endBlock();

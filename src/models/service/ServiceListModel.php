@@ -20,19 +20,13 @@ class ServiceListModel extends ListModel
     public $name;
     public $summary;
     public $image;
-    public $icon;
-    public $url;
-    public $display;
     public function rules()
     {
 
         return ArrayHelper::merge(parent::rules(), [
             ['image', 'string'],
-            ['icon', 'string'],
             ['name', 'required'],
-            ['url', 'string'],
             ['summary', 'required'],
-            ['display', 'required'],
         ]);
 
     }
@@ -45,10 +39,6 @@ class ServiceListModel extends ListModel
                 'type' => FieldConfig::INPUT,
             ],
 
-            'url' => [
-                // 'value' => $this->text,
-                'type' => FieldConfig::INPUT,
-            ],
 
             'summary' => [
                 // 'value' => $this->text,
@@ -58,15 +48,6 @@ class ServiceListModel extends ListModel
                 // 'value' => $this->text,
                 'type' => FieldConfig::IMAGE,
             ],
-            'icon' => [
-                // 'value' => $this->text,
-                'type' => FieldConfig::ICON,
-            ],
-            'display' => [
-                // 'value' => $this->text,
-                'type' => FieldConfig::RADIO,
-                'data'=>['image'=>'Image','icon'=>'Icon']
-            ]
         ];
     }
 

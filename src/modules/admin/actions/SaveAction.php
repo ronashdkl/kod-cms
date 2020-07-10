@@ -3,9 +3,15 @@
 namespace ronashdkl\kodCms\modules\admin\actions;
 
 use yii\base\Action;
+use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\helpers\VarDumper;
 
+/**
+ * Class SaveAction
+ * @package ronashdkl\kodCms\modules\admin\actions
+
+ */
 class SaveAction extends Action
 {
     public $uniqueId = 'updateData';
@@ -17,7 +23,12 @@ class SaveAction extends Action
             \Yii::$app->session->setFlash('success', 'Saved!');
             return $this->controller->redirect(Url::to(['index']));
         } else {
-            \Yii::$app->session->setFlash('error', 'failed to save!');
+           $errors = null;
+
+           foreach ($this->controller->model->getErrors()??[] as $err){
+               $errors.=$err[0]."\n ";
+           }
+            \Yii::$app->session->setFlash('error', $errors??'failed to save!');
             return $this->controller->redirect(Url::to(['index']));
         }
 

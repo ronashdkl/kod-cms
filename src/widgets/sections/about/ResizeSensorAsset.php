@@ -8,7 +8,7 @@ use yii\web\AssetBundle;
 
 class ResizeSensorAsset extends AssetBundle
 {
-public $sourcePath = '@webroot/web/js/';
+public $basePath = '@webroot/js/';
 public $js = ["resize.js"];
 
 }

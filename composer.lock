@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "453ec7efecd6cb5d156638e0b527f6a3",
+    "content-hash": "f33f8a7cb9a59a60b63572a889a8a473",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -219,6 +219,63 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.9.1,<4.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/btgrid",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:kaido24/btgrid.git",
+                "reference": "0771a4c420ecd407c6d52770d037f2ec1e8b5f06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kaido24/btgrid/zipball/0771a4c420ecd407c6d52770d037f2ec1e8b5f06",
+                "reference": "0771a4c420ecd407c6d52770d037f2ec1e8b5f06"
+            },
+            "require": {
+                "bower-asset/ckeditor": ">=4.5.8,<5.0.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/ckeditor",
+            "version": "4.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
+                "reference": "8eccaf31ad9832a113757d379758996ed2150f60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/8eccaf31ad9832a113757d379758996ed2150f60",
+                "reference": "8eccaf31ad9832a113757d379758996ed2150f60"
+            },
+            "type": "bower-asset",
+            "license": [
+                "For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license/."
+            ]
+        },
+        {
+            "name": "bower-asset/ckeditor-imgresize",
+            "version": "1.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yandex-ui/ckeditor-imgresize.git",
+                "reference": "a4b1c3900c6ae6b81647492eb228fecde86ea703"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yandex-ui/ckeditor-imgresize/zipball/a4b1c3900c6ae6b81647492eb228fecde86ea703",
+                "reference": "a4b1c3900c6ae6b81647492eb228fecde86ea703"
             },
             "type": "bower-asset",
             "license": [
@@ -2586,16 +2643,16 @@
         },
         {
             "name": "kop/yii2-scroll-pager",
-            "version": "dev-master",
+            "version": "2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kop/yii2-scroll-pager.git",
-                "reference": "2ec4ad54e9bb1ae946ea943f7847dedf349fe65b"
+                "reference": "27720921e60b5df12b73c31429472fe8781e0425"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/2ec4ad54e9bb1ae946ea943f7847dedf349fe65b",
-                "reference": "2ec4ad54e9bb1ae946ea943f7847dedf349fe65b",
+                "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/27720921e60b5df12b73c31429472fe8781e0425",
+                "reference": "27720921e60b5df12b73c31429472fe8781e0425",
                 "shasum": ""
             },
             "require": {
@@ -2630,7 +2687,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2019-10-11T07:00:39+00:00"
+            "time": "2020-07-08T07:52:26+00:00"
         },
         {
             "name": "lajax/yii2-translate-manager",
@@ -5801,6 +5858,7 @@
                 "functional testing",
                 "unit testing"
             ],
+            "abandoned": true,
             "time": "2017-05-22T23:55:43+00:00"
         },
         {
@@ -7828,7 +7886,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kop/yii2-scroll-pager": 20,
         "kartik-v/yii2-widget-fileinput": 20,
         "kartik-v/yii2-tree-manager": 20,
         "dektrium/yii2-rbac": 20,
@@ -7837,10 +7894,10 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1.0",
+        "php": ">=7.3",
         "ext-json": "*",
-        "ext-gd": "*",
-        "ext-zip": "*"
+        "ext-gd": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

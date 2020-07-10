@@ -1,19 +1,30 @@
 <?php
 
+/**
+ * @var \ronashdkl\kodCms\components\Plugins $plugins
+ */
 
 namespace ronashdkl\kodCms\base;
 
 
-use lo\plugins\components\PluginsManager;
+use ronashdkl\kodCms\components\Hooks;
+
+use ronashdkl\kodCms\components\Plugins;
+use ronashdkl\kodCms\widgets\WidgetList;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 
-class Application extends \yii\web\Application
+use yii\i18n\I18N;
+
+final class Application extends \yii\web\Application
 {
     public $controllerNamespace = 'ronashdkl\\kodCms\\controllers';
     public $version = '1.0.0';
+    public $projectId;
+    public $hooks;
+    public $plugins;
+    public $widgetList;
+
     /**
      * Pre-initializes the application.
      * This method is called at the beginning of the application constructor.
@@ -25,7 +36,10 @@ class Application extends \yii\web\Application
     public function preInit(&$config)
     {
         parent::preInit($config);
+        $this->hooks = new Hooks();
+        $this->hooks->do_action('After_Hooks_Setup',$this->hooks);
         Yii::setAlias('@kodCms', dirname(__DIR__)."/");
+
         if (!isset($config['modules']['admin'])) {
             $this->setModule('admin',[
                 'class' => 'ronashdkl\kodCms\modules\admin\Module',
@@ -33,7 +47,7 @@ class Application extends \yii\web\Application
             ]);
         }
 
-        if (!isset($config['modules']['plugins'])) {
+      /*  if (!isset($config['modules']['plugins'])) {
             $this->setModule('plugins',[
                 'class' => 'lo\plugins\Module',
                 'layout' => '@kodCms/modules/admin/views/layouts/main.php',
@@ -44,7 +58,7 @@ class Application extends \yii\web\Application
                     '@app/shortcodes', // dir with our plugins
                 ]
             ]);
-        }
+        }*/
         if (!isset($config['modules']['noty'])) {
             $this->setModule('noty',[
                 'class' => 'lo\modules\noty\Module',
@@ -115,13 +129,25 @@ class Application extends \yii\web\Application
 
         if(isset($config['bootstrap'])){
             $config['bootstrap'] = array_merge($config['bootstrap'],[
-                'log', 'plugins','assetsAutoCompress'
+                'log','admin','assetsAutoCompress'
             ]);
         }else{
             $config['bootstrap'] = [
-                'log', 'plugins','assetsAutoCompress'
+                'log', 'admin','assetsAutoCompress'
             ];
         }
+
+
+
+
+        if(!isset($config['components']['view']['theme']['pathMap'])){
+            $config['components']['view']['theme']['pathMap'] = ViewParams::getPathMap();
+        }else{
+            $config['components']['view']['theme']['pathMap']  = array_merge(ViewParams::getPathMap(), $config['components']['view']['theme']['pathMap'] );
+        }
+        $this->plugins = new Plugins();
+        $this->widgetList = new WidgetList();
+
     }
 
 
@@ -140,16 +166,6 @@ class Application extends \yii\web\Application
                 'class' => 'creocoder\flysystem\LocalFilesystem',
                 'path' => '@app/storage/data',
             ],
-            'plugins' => [
-                'class' => PluginsManager::class,
-                'appId' => YII_APP_ID,
-                // by default
-                'enablePlugins' => true,
-                'shortcodesParse' => true,
-                'shortcodesIgnoreBlocks' => [
-                    '<pre[^>]*>' => '<\/pre>',
-                    '<div class="content[^>]*>' => '<\/div>',
-                ]],
             'assetManager' => [
               'class' => 'yii\web\AssetManager',
                 'bundles' => [
@@ -196,26 +212,39 @@ class Application extends \yii\web\Application
             'reCaptcha' => [
                 'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
             ],
-            'view' => [
-                'class' => \yii\web\View::class,
-                'theme' => [
-                    'pathMap' => [
-                        '@vendor/dektrium/user/views' => '@kodCms/views/user',
-                        '@vendor/loveorigami/yii2-plugins-system/src/views' => '@kodCms/modules/admin/views/plugins',
-                        '@vendor/kartik/tree/views' => '@kodCms/modules/admin/views/tree'
+            'urlManager' => [
+                'class' => 'codemix\localeurls\UrlManager',
+                //'class' => \yii\web\UrlManager::class,
+                'enableDefaultLanguageUrlCode' => true,
+                // List all supported languages here
+                // Make sure, you include your app's default language.
+                'languages' => ['en'],
+                'enablePrettyUrl' => true,
+                'showScriptName' => false,
+                'rules' => UrlRules::getRules(),
+                'ignoreLanguageUrlPatterns' => UrlRules::getIgnoreRules()
+            ],
+            'i18n' => [
+                'class'=>I18N::class,
+                'translations' => [
+                    'conquer/oauth2' => [
+                        'class' => \yii\i18n\PhpMessageSource::class,
+                        'basePath' => '@conquer/oauth2/messages',
+                    ],
+                    '*' => [
+                        'class' => 'yii\i18n\DbMessageSource',
+                        'db' => 'db',
+                        'sourceLanguage' => 'en',
+                        'sourceMessageTable' => '{{%language_source}}',
+                        'messageTable' => '{{%language_translate}}',
+                        'cachingDuration' => 86400,
+                        'enableCaching' => false,
+
                     ],
                 ],
             ],
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
-    {
 
-        parent::init();
-
-    }
 }

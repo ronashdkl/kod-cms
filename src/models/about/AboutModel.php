@@ -20,14 +20,14 @@ class AboutModel extends BaseModel
 {
 
     protected $loadFromDb = true;
-   // public $listAttribute = 'list';
-   // public $listClass = AboutListModel::class;
+    public $listAttribute = 'list';
+    public $listClass = AboutListModel::class;
     // public $styleAttribute = 'style';
     //public $styleClass = AboutStyleModel::class;
     public $summary;
     public $title;
    // public $style;
-   // public $list;
+    public $list;
     public $image;
     public $unsafe;
     public $image_position;
@@ -40,7 +40,8 @@ class AboutModel extends BaseModel
         return ArrayHelper::merge(parent::rules(), [
 
             [['image'], 'string'],
-            ['image_position','safe']
+            ['image_position','safe'],
+            ['list','safe']
 
         ]);
 
@@ -57,7 +58,7 @@ class AboutModel extends BaseModel
                 'image_position' => [
                     // 'value' => $this->display,
                     'type' => FieldConfig::RADIO,
-                    'data'=>['left'=>'Left','bottom'=>'Bottom']
+                    'data'=>['left'=>'Left','right'=>'Right']
                 ],
 
             ]

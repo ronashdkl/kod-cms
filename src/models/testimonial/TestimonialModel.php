@@ -12,34 +12,33 @@ use yii\helpers\ArrayHelper;
 
 class TestimonialModel extends BaseModel
 {
-    public $isMultilanguage = true;
-    public $loadFromDb = true;
-    public $background;
+    public $listClass = TestimonialListModel::class;
+    public $isMultilanguage = false;
+    public $loadFromDb = false;
+    public $image;
+    public $title;
+    public $listAttribute = 'list';
+    public $list;
 
     public function rules()
     {
         return  [
-            ['background', 'string']
+            ['image', 'string'],
+            ['list','safe'],
+            ['title','string']
         ];
     }
 
     public function formTypes()
     {
         return [
-            'background' => [
+            'image' => [
                 'type' => FieldConfig::IMAGE
+            ],
+            'title' => [
+                'type' => FieldConfig::INPUT
             ]
         ];
     }
-    public function getBackground()
-    {
-        if($this->background==null){
-            return  $this->background = '/web/images/pattern/pattern3.png';
-        }else{
-            return $this->background;
-        }
-    }
-    public function getlist(){
-        return PostModel::find()->where(['tree_id'=>AppData::TESTIMONIAL])->all();
-    }
+
 }

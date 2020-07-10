@@ -43,7 +43,7 @@ use yii\helpers\VarDumper;
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <?=
         AdminMenu::widget([
-            'items' => Module::$menu
+            'items' => Yii::$app->getModule('admin')->getMenu()
         ])
         ?>
     </section>

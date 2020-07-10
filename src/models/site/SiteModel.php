@@ -27,7 +27,7 @@ class SiteModel extends BaseModel
     public $footer_code;
     public $mon_fri;
     public $sat;
-protected $isMultilanguage = false;
+    protected $isMultilanguage = false;
 
     public function rules()
     {

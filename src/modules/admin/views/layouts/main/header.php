@@ -13,9 +13,9 @@ use yii\widgets\Pjax;
   <!-- Logo -->
   <a href="/admin" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><?=$this->params['config']('short_name')?></span>
+    <span class="logo-mini"><?=$this->params['config']('short_name')??'KCMS'?></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><?=$this->params['config']('name')?></span>
+    <span class="logo-lg"><?=$this->params['config']('name')??'kodCMS'?></span>
   </a>
 
   <!-- Header Navbar -->

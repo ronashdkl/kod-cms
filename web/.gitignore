@@ -1,6 +1,1 @@
-*
-!.gitignore
-!media
-!assets
-!index.php
-!.htaccess
+assets

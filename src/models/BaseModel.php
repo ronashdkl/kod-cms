@@ -27,6 +27,7 @@ use yii\helpers\VarDumper;
  */
 abstract class BaseModel extends Model implements ModelInterface
 {
+   public  static $_instance;
     const EVENT_INIT = 'event_init';
     protected $isMultilanguage = true;
     protected $fieldType;
@@ -302,5 +303,15 @@ abstract class BaseModel extends Model implements ModelInterface
         }
     }
 
+    public static function getInstance()
+    {
+
+        $class = get_called_class();
+        if ( ! ( self::$_instance instanceof $class) ) {
+            $class = get_called_class();
+            self::$_instance =  new $class();
+        }
+        return self::$_instance;
+    }
 
 }
