@@ -152,7 +152,7 @@ abstract class BaseModel extends Model implements ModelInterface
      */
     protected function loadList()
     {
-        if (!$this->hasProperty($this->listAttribute)) {
+        if ( $this->listAttribute ==null) {
             return;
         }
         if ($this->listClass == null) {
@@ -175,7 +175,7 @@ abstract class BaseModel extends Model implements ModelInterface
 
     protected function loadStyle()
     {
-        if (!$this->hasProperty($this->styleAttribute)) {
+        if ($this->styleAttribute==null) {
             return;
         }
         if ($this->styleClass == null) {
@@ -279,7 +279,7 @@ abstract class BaseModel extends Model implements ModelInterface
      */
     public function getListModel()
     {
-        if ($this->hasProperty($this->listAttribute)) {
+        if ($this->listAttribute!=null) {
             if ($this->listClass == null) {
                 throw new PropertyException('Please declare $listClass on ' . get_called_class());
             }
@@ -295,7 +295,7 @@ abstract class BaseModel extends Model implements ModelInterface
      */
     public function getStyleModel()
     {
-        if ($this->hasProperty($this->styleAttribute)) {
+        if ($this->styleAttribute!=null) {
             if ($this->styleClass == null) {
                 throw new PropertyException('Please declare $styleClass on ' . get_called_class());
             }

@@ -18,8 +18,9 @@ class LanguageModel extends BaseModel
     public function init()
     {
         parent::init();
-        $this->default= (object)['name'=>'Swedish','code'=>'sv','language_id'=>'sv_SE','flag'=>'/media/flags/se.png'];
+        $this->default = (object)['name' => 'Swedish', 'code' => 'sv', 'language_id' => 'sv_SE', 'flag' => '/media/flags/se.png'];
     }
+
     public function rules()
     {
         return [['list', 'safe']];
@@ -30,16 +31,23 @@ class LanguageModel extends BaseModel
         return [];
     }
 
-    public function activeLanguage(){
-        $active = array_search(\Yii::$app->language,array_column($this->list,'code'));
-        if($active===false){
+    public function activeLanguage()
+    {
+        $active = array_search(\Yii::$app->language, array_column($this->list, 'code'));
+        if ($active === false) {
             return $this->default;
-        }else{
+        } else {
             return $this->list[$active];
         }
 
     }
 
-
+   /* public function getList()
+    {
+        if ($this->list) {
+            return $this->list;
+        }
+        return ["en"];
+    }*/
 
 }

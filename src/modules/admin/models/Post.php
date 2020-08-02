@@ -42,7 +42,6 @@ use yii\web\UploadedFile;
  * @property string $removed_at
  * @property int $removed_by
  * @property string $language
- * @property double $price
  * @property string $tag
  * @property string $avatar
  * @property boolean $sticky_avatar
@@ -124,7 +123,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
+        return Yii::$app->hooks->apply_filters('post_rules', [
             [['tree_id', 'project_id', 'draft', 'featured', 'published', 'created_by', 'updated_by', 'removed_by'], 'integer'],
             [['title'], 'required'],
             [['created_at', 'created_by', 'updated_at', 'updated_by', 'slug', 'tag', 'avatar', 'body'], 'safe'],
@@ -138,9 +137,8 @@ class Post extends \yii\db\ActiveRecord
             [['title'], 'string', 'max' => 200],
             ['media', 'safe'],
             [['running', 'completed','sticky_avatar'], 'safe'],
-            ['price', 'number'],
 
-        ];
+        ]);
     }
 
     /**
@@ -167,7 +165,7 @@ class Post extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('app', 'Updated By'),
             'removed_at' => Yii::t('app', 'Removed At'),
             'removed_by' => Yii::t('app', 'Removed By'),
-            'price' => Yii::t('app', 'Price'),
+
             'avatarImage' => Yii::t('app', 'Avatar'),
             'running' => Yii::t('app', 'Running'),
         ];
@@ -175,14 +173,14 @@ class Post extends \yii\db\ActiveRecord
 
     public function formTypes()
     {
-        return [
-            'title' => [
-                'type' => FieldConfig::INPUT
+        return Yii::$app->hooks->apply_filters('post_fields',[
+            'title'=>[
+                'type'=>FieldConfig::INPUT
             ],
-            'body' => [
-                'type' => FieldConfig::CKEDITOR
-            ],
-        ];
+            'body'=>[
+                'type'=>FieldConfig::CKEDITOR
+            ]
+        ]);
     }
 
     /**

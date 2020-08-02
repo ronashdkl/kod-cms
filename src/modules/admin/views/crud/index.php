@@ -11,7 +11,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
  * @var $model BaseActiveRecord
  */
 /* @var $this yii\web\View */
-/* @var $searchModel ronashdkl\kodCms\modules\admin\models\GallerySearch */
+/* @var $searchModel \yii\db\ActiveRecord */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = (Yii::$app->controller->action->id!='trash')?Yii::t('app', ucfirst($this->context->id)):Yii::t('app', 'Trash '.ucfirst($this->context->id));

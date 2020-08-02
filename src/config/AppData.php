@@ -3,33 +3,26 @@
 namespace ronashdkl\kodCms\config;
 
 use ronashdkl\kodCms\helpers\HookActions;
-use ronashdkl\kodCms\models\contact\MapModel;
 use ronashdkl\kodCms\models\language\LanguageModel;
 use ronashdkl\kodCms\models\post\PostWidgetModel;
-use ronashdkl\kodCms\models\seo\SeoModel;
 use ronashdkl\kodCms\models\site\SiteModel;
-use ronashdkl\kodCms\models\social\FacebookModel;
-use ronashdkl\kodCms\models\social\InstagramModel;
-use ronashdkl\kodCms\models\social\LinkedinModel;
 use ronashdkl\kodCms\modules\admin\models\Log;
-use ronashdkl\kodCms\modules\admin\Module;
 use ronashdkl\kodCms\widgets\PageMenuWidget;
-use ronashdkl\kodCms\widgets\WidgetList;
 use Yii;
 use yii\base\Component;
-use yii\base\Exception;
-use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
- class AppData extends Component
+class AppData extends Component
 {
+    const BEFORE_HOMEPAGE_WIDGET_RENDER = 'homepage_widget_before_render';
+    const BEFORE_PAGE_WIDGET_RENDER = 'homepage_widget_before_render';
+
     const SERVICES = 1; //map from db
     const TICKET = 2; //map from db
     const PAGE = 4; //map from db
     const CLIENT = 6; //map from db
     const Portfolio = 5; //map from db
     const TESTIMONIAL = 7; //map from db
-
     private $logs;
     public $seo;
     public $siteData;
@@ -41,24 +34,19 @@ use yii\helpers\VarDumper;
 
     public $widgets;
 
-    public function __construct()
+
+    public function init()
     {
+
         if (YII_APP_ID == 2) {
             $this->logs = Log::find()->limit(4)->orderBy('id desc')->asArray()->all();
-
         } else {
-            $this->seo = SeoModel::getInstance();
-            $this->facebook = FacebookModel::getInstance();
-            $this->linkedin = LinkedinModel::getInstance();
-            $this->instagram = InstagramModel::getInstance();
-            $this->map = MapModel::getInstance();
             $this->widgets = PostWidgetModel::getInstance();
-
         }
         $this->siteData = new SiteModel();
         $this->language = new LanguageModel();
-        if(YII_APP_ID==1){
-            Yii::$app->params['bsVersion']='4.x';
+        if (YII_APP_ID == 1) {
+            Yii::$app->params['bsVersion'] = '4.x';
         }
 
     }
@@ -82,16 +70,17 @@ use yii\helpers\VarDumper;
     public function isHome()
     {
 
-        $path=Yii::$app->request->pathInfo;
+        $path = Yii::$app->request->pathInfo;
 
-        return (in_array($path,['site/index.html','']))?true:false;
+        return (in_array($path, ['site/index.html', ''])) ? true : false;
 
 
     }
 
     public function registerPageWidget()
     {
-        if(Yii::$app->response->statusCode == 200) {
+        if (Yii::$app->response->statusCode == 200) {
+            $this->trigger(self::BEFORE_PAGE_WIDGET_RENDER);
             $widgetList = Yii::$app->widgetList->getAll();
             $selectedWidgets = ['top' => [], 'bottom' => []];
             foreach ($this->widgets->page_top_content as $top) {
@@ -107,7 +96,7 @@ use yii\helpers\VarDumper;
             foreach ($selectedWidgets['top'] as $wtop) {
 
 
-                    echo $wtop::widget();
+                echo $wtop::widget();
             }
             Yii::$app->getView()->endBlock();
 
@@ -121,8 +110,9 @@ use yii\helpers\VarDumper;
 
     public function registerHomeWidgetV1()
     {
-        if(Yii::$app->response->statusCode == 200 && Yii::$app->hooks->has_action(HookActions::RENDER_WIDGET)) {
-          //  $selectedWidgets = [];
+        if (Yii::$app->response->statusCode == 200 && Yii::$app->hooks->has_action(HookActions::RENDER_WIDGET)) {
+            $this->trigger(self::BEFORE_HOMEPAGE_WIDGET_RENDER);
+            //  $selectedWidgets = [];
             Yii::$app->getView()->beginBlock('top_content');
             Yii::$app->hooks->do_action(HookActions::RENDER_WIDGET);
             Yii::$app->getView()->endBlock();
@@ -131,24 +121,25 @@ use yii\helpers\VarDumper;
 
     public function registerHomeWidget()
     {
-        if(Yii::$app->response->statusCode == 200) {
-
+        if (Yii::$app->response->statusCode == 200) {
+            $this->trigger(self::BEFORE_HOMEPAGE_WIDGET_RENDER);
             $widgetList = Yii::$app->widgetList->getAll();
-        $selectedWidgets = [];
-        foreach ($this->widgets->home_page_content as $top) {
-            $selectedWidgets[] = $widgetList[$top];
-        }
+            $selectedWidgets = [];
+            foreach ($this->widgets->home_page_content as $top) {
+                $selectedWidgets[] = $widgetList[$top];
+            }
 
 
-        Yii::$app->getView()->beginBlock('top_content');
+            Yii::$app->getView()->beginBlock('top_content');
             foreach ($selectedWidgets as $content) {
 
                 if ($content == PageMenuWidget::class) {
                     echo PageMenuWidget::widget([
                         'list' => $selectedWidgets
                     ]);
-                } else {;
-                  echo $content::widget();
+                } else {
+                    ;
+                    echo $content::widget();
                 }
             }
             Yii::$app->getView()->endBlock();

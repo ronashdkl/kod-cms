@@ -17,7 +17,7 @@ class FormFieldWidget extends Widget
 {
     public $model;
     public $form;
-
+    public $group;
     public function run()
     {
         parent::run();
@@ -31,6 +31,6 @@ class FormFieldWidget extends Widget
         } else {
             $language = [];
         }*/
-        return $this->render('field', ['form' => $this->form, 'model' => $this->model, 'fields' => $fields,'language'=>[]]);
+        return $this->render('field', ['form' => $this->form, 'model' => $this->model, 'fields' => $fields,'language'=>[],'group'=>$this->group]);
     }
 }

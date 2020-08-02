@@ -4,25 +4,21 @@
  */
 
 use ronashdkl\kodCms\models\BaseModel;
-use ronashdkl\kodCms\modules\admin\exceptions\PropertyException;
 use johnitvn\ajaxcrud\BulkButtonWidget;
-use kdn\yii2\JsonEditor;
 use yii\data\ArrayDataProvider;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use yii\widgets\DetailView;
-use yii\widgets\Pjax;
 
 
 $this->params['breadcrumbs'][] = Yii::t('app', $this->title);
 $listAttr = false;
 $styleAttr = false;
-if ($model->hasProperty($model->listAttribute)) {
+if ($model->listAttribute!=null) {
     $listAttr = true;
 }
-if ($model->hasProperty($model->styleAttribute)) {
+if ($model->styleAttribute!=null) {
     $styleAttr = true;
 }
 if ($model->formTypes() != null) {
@@ -184,6 +180,10 @@ if ($model->formTypes() != null) {
 <?php
 $this->registerJs('$(document).on("pjax:success", "#crud-datatable-pjax",function(event) {
         $.pjax.reload({container:"#jsoneditor-pjax"});
-        $.pjax.reload({container:"#log-list"});
 });');
+if(Yii::$app->appData->logs!=null){
+    $this->registerJs('$(document).on("pjax:success", "#crud-datatable-pjax",function(event) {
+       $.pjax.reload({container:"#log-list"});
+});');
+}
 ?>

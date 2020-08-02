@@ -23,16 +23,29 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('user', 'Sign in');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+  body{
+     background:#ffb40a
+  }
 
+    .login-box {
+        position: absolute;
+        width: 100%;
+        /*top: 10%;*/
+        box-shadow: 0px 0px 20px 0px #232222;
+        background: #fff8;
+        border-radius: 50px 5px 50px 5px;
+    }
+
+</style>
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center login-screen">
 
-<div class="col-6 to_animate ">
+<div class="col-sm-12 col-lg-3 to_animate login-box">
     <div class="with_border with_padding mt-5">
-
         <h4 class="text-center">
-            <?= Html::encode($this->title) ?>
+            kodCMS
         </h4>
         <hr class="bottommargin_30">
         <div class="wrap-forms">
@@ -111,5 +124,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
+    <?php
+    $this->registerJs('  
+    $(document).ready(function(){
+       
+        var height = $(window).height();
+       $(".login-box").css("top",height*.15)
+       
+    });',$this::POS_END);
+    ?>
 
 </div>

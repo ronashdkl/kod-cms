@@ -8,17 +8,15 @@ use ronashdkl\kodCms\modules\admin\exceptions\ModelException;
 use ronashdkl\kodCms\modules\admin\exceptions\PropertyException;
 use ronashdkl\kodCms\modules\admin\models\BaseActiveRecord;
 use Yii;
-use ronashdkl\kodCms\modules\admin\models\Gallery;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
-use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * GalleryController implements the CRUD actions for Gallery model.
+ * ItemController implements the CRUD actions for Item model.
  * @property BaseActiveRecord $model
  */
 abstract class CRUDController extends BaseController
@@ -53,7 +51,7 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Lists all Gallery models.
+     * Lists all Item models.
      * @return mixed
      */
     public function actionIndex()
@@ -71,7 +69,7 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Lists all Gallery models.
+     * Lists all Item models.
      * @return mixed
      */
     public function actionTrash()
@@ -87,7 +85,7 @@ abstract class CRUDController extends BaseController
 
 
     /**
-     * Displays a single Gallery model.
+     * Displays a single Item model.
      * @param integer $id
      * @return mixed
      */
@@ -97,7 +95,7 @@ abstract class CRUDController extends BaseController
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Gallery #" . $id,
+                'title' =>   $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -112,7 +110,7 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Creates a new Gallery model.
+     * Creates a new Item model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -128,7 +126,7 @@ abstract class CRUDController extends BaseController
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Create new Gallery",
+                    'title' => "Create new Item",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -140,15 +138,15 @@ abstract class CRUDController extends BaseController
 
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Create new Gallery",
-                    'content' => '<span class="text-success">Create Gallery success</span>',
+                    'title' => "Create new Item",
+                    'content' => '<span class="text-success">Create Item success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
                 ];
             } else {
                 return [
-                    'title' => "Create new Gallery",
+                    'title' => "Create new Item",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -173,7 +171,7 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Updates an existing Gallery model.
+     * Updates an existing Item model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -191,7 +189,7 @@ abstract class CRUDController extends BaseController
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Update Gallery #" . $id,
+                    'title' => "Update Item #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -201,7 +199,7 @@ abstract class CRUDController extends BaseController
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Gallery #" . $id,
+                    'title' => "Item #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -210,7 +208,7 @@ abstract class CRUDController extends BaseController
                 ];
             } else {
                 return [
-                    'title' => "Update Gallery #" . $id,
+                    'title' => "Update Item #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -233,7 +231,7 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Delete an existing Gallery model.
+     * Delete an existing Item model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -261,7 +259,7 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Delete multiple existing Gallery model.
+     * Delete multiple existing Item model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -292,10 +290,10 @@ abstract class CRUDController extends BaseController
     }
 
     /**
-     * Finds the Gallery model based on its primary key value.
+     * Finds the Item model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Gallery the loaded model
+     * @return Item the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

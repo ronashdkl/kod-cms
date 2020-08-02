@@ -17,8 +17,8 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $basePath = '@kodCmsWeb';
+   // public $baseUrl = '@web';
 
     public $css = [
         'css/kodCms.css'

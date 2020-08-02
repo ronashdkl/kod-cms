@@ -15,3 +15,31 @@ public function run()
     parent::run();
     return $this->render('index');
 }
+
+======
+seo
+=======
+
+
+    <meta name="author" content="<?= $this->params['seo']('author')?>">
+    <meta name="description" content="<?= $this->params['seo']('summary')?>">
+    <meta name="keyword" content="<?= $this->params['seo']('keyword')?>">
+   <!-- <meta property="og:locale" content="sv_SE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<?/*=$this->params['seo']('title')*/?>" />
+    <meta property="og:description" content="<?/*= $this->params['seo']('summary')*/?>" />
+    <meta property="og:url" content="https://www.pastordennisflyttfirma.se" />
+    <meta property="og:image" content="https://www.pastordennisflyttfirma.se/pastordennis_kodknackare.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="<?/*=$this->params['config']('name')*/?>" />
+    -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="<?= $this->params['seo']('summary')?>" />
+    <meta name="twitter:title" content="<?=$this->params['seo']('title')?>" />
+    <meta name="twitter:image" content="<?=$this->params['config']('logo')?>" />
+
+    <?php $this->registerCsrfMetaTags() ?>
+    <!-- Document title -->
+    <title><?=$this->params['seo']('title')?></title>
+    <meta name="google-site-verification" content="<?=$this->params['seo']('google_site_verification')?>" />

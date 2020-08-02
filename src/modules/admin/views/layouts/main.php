@@ -33,6 +33,13 @@ CrudAsset::register($this);
 $adminView = new AdminView();
 echo Wrapper::widget([
     'layerClass' => 'lo\modules\noty\layers\Growl',
+    'options' => [
+           'dismissQueue' => true,
+           'layout' => 'bottomLeft',
+           'timeout' => 3000,
+          'theme' => 'relax',
+           // and more for this library...
+       ],
 ]);
 
 
@@ -122,6 +129,12 @@ echo Wrapper::widget([
 <?php Modal::end(); ?>
 
 <?php $this->endBody() ?>
+
+<?php
+if (isset($this->blocks['customJs'])) {
+    echo $this->blocks['customJs'];
+}
+?>
 </body>
 </html>
 <?php $this->endPage() ?>

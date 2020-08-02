@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f33f8a7cb9a59a60b63572a889a8a473",
+    "content-hash": "12a568053cca46b5648d2b4eeaeeadef",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -226,63 +226,6 @@
             ]
         },
         {
-            "name": "bower-asset/btgrid",
-            "version": "1.0",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:kaido24/btgrid.git",
-                "reference": "0771a4c420ecd407c6d52770d037f2ec1e8b5f06"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kaido24/btgrid/zipball/0771a4c420ecd407c6d52770d037f2ec1e8b5f06",
-                "reference": "0771a4c420ecd407c6d52770d037f2ec1e8b5f06"
-            },
-            "require": {
-                "bower-asset/ckeditor": ">=4.5.8,<5.0.0"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/ckeditor",
-            "version": "4.14.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "8eccaf31ad9832a113757d379758996ed2150f60"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/8eccaf31ad9832a113757d379758996ed2150f60",
-                "reference": "8eccaf31ad9832a113757d379758996ed2150f60"
-            },
-            "type": "bower-asset",
-            "license": [
-                "For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license/."
-            ]
-        },
-        {
-            "name": "bower-asset/ckeditor-imgresize",
-            "version": "1.0.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yandex-ui/ckeditor-imgresize.git",
-                "reference": "a4b1c3900c6ae6b81647492eb228fecde86ea703"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yandex-ui/ckeditor-imgresize/zipball/a4b1c3900c6ae6b81647492eb228fecde86ea703",
-                "reference": "a4b1c3900c6ae6b81647492eb228fecde86ea703"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "bower-asset/fontawesome-iconpicker",
             "version": "3.2.0",
             "source": {
@@ -323,7 +266,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -359,7 +302,7 @@
             "version": "1.12.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:components/jqueryui.git",
+                "url": "https://github.com/components/jqueryui.git",
                 "reference": "44ecf3794cc56b65954cc19737234a3119d036cc"
             },
             "dist": {
@@ -5767,6 +5710,63 @@
                 "parser"
             ],
             "time": "2016-10-30T11:50:56+00:00"
+        },
+        {
+            "name": "bower-asset/btgrid",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:kaido24/btgrid.git",
+                "reference": "0771a4c420ecd407c6d52770d037f2ec1e8b5f06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kaido24/btgrid/zipball/0771a4c420ecd407c6d52770d037f2ec1e8b5f06",
+                "reference": "0771a4c420ecd407c6d52770d037f2ec1e8b5f06"
+            },
+            "require": {
+                "bower-asset/ckeditor": ">=4.5.8,<5.0.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/ckeditor",
+            "version": "4.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
+                "reference": "8eccaf31ad9832a113757d379758996ed2150f60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/8eccaf31ad9832a113757d379758996ed2150f60",
+                "reference": "8eccaf31ad9832a113757d379758996ed2150f60"
+            },
+            "type": "bower-asset",
+            "license": [
+                "For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license/."
+            ]
+        },
+        {
+            "name": "bower-asset/ckeditor-imgresize",
+            "version": "1.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yandex-ui/ckeditor-imgresize.git",
+                "reference": "a4b1c3900c6ae6b81647492eb228fecde86ea703"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yandex-ui/ckeditor-imgresize/zipball/a4b1c3900c6ae6b81647492eb228fecde86ea703",
+                "reference": "a4b1c3900c6ae6b81647492eb228fecde86ea703"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "codeception/base",

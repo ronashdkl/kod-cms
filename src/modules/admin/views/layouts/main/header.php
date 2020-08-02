@@ -157,7 +157,8 @@ use yii\widgets\Pjax;
                 <a href="/user/settings" class="btn btn-default btn-flat"><?=Yii::t('app','Profile')?></a>
               </div>
               <div class="pull-right">
-                <a href="/user/logout" data-method="POST" class="btn btn-default btn-flat">Sign out</a>
+                  <?= Html::a('Sign out',['/user/logout'],['class'=>'btn btn-default btn-flat','data-method'=>'POST'])?>
+
               </div>
             </li>
           </ul>

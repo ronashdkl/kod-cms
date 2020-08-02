@@ -9,6 +9,7 @@
 /**
  * @var LanguageListModel $language
  * @var array $fields
+ * @var string $group
  */
 
 use ronashdkl\kodCms\components\FieldConfig;
@@ -17,6 +18,17 @@ use ronashdkl\kodCms\models\language\LanguageListModel;
 use ronashdkl\kodCms\modules\admin\exceptions\PropertyException;
 
 $config = new FieldConfig();
+
+if($group!=null){
+
+    $fields = array_filter($fields,function($key) use ($group, $fields){
+        if($fields[$key]['group']==$group){
+                return true;
+        }
+        return false;
+    },ARRAY_FILTER_USE_KEY );
+
+}
 
 foreach ($fields as $key => $field) {
 
@@ -55,6 +67,7 @@ foreach ($fields as $key => $field) {
                      echo $form->field($model, $key)->textInput($field['config']);
 
                  }*/
+
                 echo $form->field($model, $key)->textInput($field['config'])->label($field['label']??null);
 
                 echo (isset($field['hint'])) ? \yii\helpers\Html::tag('p', $field['hint']) : null;

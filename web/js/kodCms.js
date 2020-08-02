@@ -153,8 +153,6 @@ jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeO
     if (!$(this).parent().hasClass('dropdown'))
         $(".navbar-collapse").collapse('hide');
     });
-
-
     /* Image Slider - Swiper */
     var imageSlider = new Swiper('.image-slider', {
         autoplay: {

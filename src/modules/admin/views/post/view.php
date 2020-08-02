@@ -46,6 +46,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Current Post');
 
 
 
+
+
                     </div>
                     <div class="panel-footer">
                         <?= $this->render('_action') ?>

@@ -88,7 +88,7 @@ abstract class AdminSiteController extends BaseController
         if ($this->modelClass == null) {
             throw new ModelException('Please declare $modelClass on ' . get_called_class());
         }
-        $this->model = new $this->modelClass();
+        $this->model = $this->modelClass::getInstance();
         if ($this->model instanceof BaseModel == false) {
             throw new NotSupportedException($this->modelClass . ' model is not support for this types of controller. $modalClass should be instance of ' . BaseModel::class, 501);
 

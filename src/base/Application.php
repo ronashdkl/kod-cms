@@ -23,7 +23,20 @@ final class Application extends \yii\web\Application
     public $projectId;
     public $hooks;
     public $plugins;
+    public $widgetListClass;
     public $widgetList;
+    public $pluginPath = '@app/plugins';
+
+    public function init()
+    {
+        $this->hooks = new Hooks();
+        Yii::setAlias('@kodCms', dirname(__DIR__) . "/");
+        Yii::setAlias('@kodCmsWeb', dirname(__DIR__) . "/../web/");
+        $this->widgetList = $this->widgetListClass ? new $this->widgetListClass() : new WidgetList();
+        $this->plugins = new Plugins();
+        parent::init();
+
+    }
 
     /**
      * Pre-initializes the application.
@@ -36,66 +49,47 @@ final class Application extends \yii\web\Application
     public function preInit(&$config)
     {
         parent::preInit($config);
-        $this->hooks = new Hooks();
-        $this->hooks->do_action('After_Hooks_Setup',$this->hooks);
-        Yii::setAlias('@kodCms', dirname(__DIR__)."/");
 
         if (!isset($config['modules']['admin'])) {
-            $this->setModule('admin',[
-                'class' => 'ronashdkl\kodCms\modules\admin\Module',
-                'layout' => '@kodCms/modules/admin/views/layouts/main.php',
-            ]);
+            $config['modules']['admin'] = ['class' => 'ronashdkl\kodCms\modules\admin\Module',
+                'layout' => '@kodCms/modules/admin/views/layouts/main.php',];
         }
-
-      /*  if (!isset($config['modules']['plugins'])) {
-            $this->setModule('plugins',[
-                'class' => 'lo\plugins\Module',
-                'layout' => '@kodCms/modules/admin/views/layouts/main.php',
-                'pluginsDir' => [
-                    '@kodCms/plugins', // default dir with core plugins
-                    '@kodCms/shortcodes',
-                    '@app/plugins', // dir with our plugins
-                    '@app/shortcodes', // dir with our plugins
-                ]
-            ]);
-        }*/
         if (!isset($config['modules']['noty'])) {
-            $this->setModule('noty',[
-                'class' => 'lo\modules\noty\Module',
-            ]);
+            $config['modules']['noty'] = ['class' => 'lo\modules\noty\Module',];
+
         }
         if (!isset($config['modules']['treemanager'])) {
-            $this->setModule('treemanager',[
+            $config['modules']['treemanager'] =  [
                 'class' => '\kartik\tree\Module',
-            ]);
+            ];
         }
         if (!isset($config['modules']['rbac'])) {
-            $this->setModule('rbac', ['class' => 'dektrium\rbac\RbacWebModule',
+            $config['modules']['rbac']= ['class' => 'dektrium\rbac\RbacWebModule',
                 'layout' => '@kodCms/modules/admin/views/layouts/main.php',
-            ]);
+            ];
         }
         if (!isset($config['modules']['gridview'])) {
-            $this->setModule('gridview', ['class' => '\kartik\grid\Module',
-            ]);
+            $config['modules']['gridview']=['class' => '\kartik\grid\Module',
+            ];
         }
         if (!isset($config['modules']['translatemanager'])) {
-            $this->setModule('translatemanager',  [
+            $config['modules']['translatemanager'] = [
                 'class' => 'lajax\translatemanager\Module',
                 'layout' => '@kodCms/modules/admin/views/layouts/main.php',
                 'roles' => ['admin'],
                 'tmpDir' => '@runtime',
                 'allowedIPs' => ['*'],
                 'root' => '@app',
-            ]);
+            ];
         }
         if (!isset($config['modules']['api'])) {
-            $this->setModule('api', [
+            $config['modules']['api']=[
                 'class' => 'ronashdkl\kodCms\modules\api\Module',
-            ]);
+            ];
         }
 
         if (!isset($config['modules']['user'])) {
-            $this->setModule('user',[
+            $config['modules']['user']= [
                 'class' => 'dektrium\user\Module',
                 'layout' => '@kodCms/modules/admin/views/layouts/main.php',
                 'enableUnconfirmedLogin' => true,
@@ -124,29 +118,30 @@ final class Application extends \yii\web\Application
                 'modelMap' => [
                     'Profile' => 'ronashdkl\kodCms\modules\admin\models\Profile',
                 ],
-            ]);
+            ];
         }
 
-        if(isset($config['bootstrap'])){
-            $config['bootstrap'] = array_merge($config['bootstrap'],[
-                'log','admin','assetsAutoCompress'
+        if (isset($config['bootstrap'])) {
+            $config['bootstrap'] = array_merge($config['bootstrap'], [
+                'log', 'admin', 'assetsAutoCompress'
             ]);
-        }else{
+        } else {
             $config['bootstrap'] = [
-                'log', 'admin','assetsAutoCompress'
+                'log', 'admin', 'assetsAutoCompress'
             ];
         }
 
 
-
-
-        if(!isset($config['components']['view']['theme']['pathMap'])){
+        if (!isset($config['components']['view']['theme']['pathMap'])) {
             $config['components']['view']['theme']['pathMap'] = ViewParams::getPathMap();
-        }else{
-            $config['components']['view']['theme']['pathMap']  = array_merge(ViewParams::getPathMap(), $config['components']['view']['theme']['pathMap'] );
+        } else {
+            $config['components']['view']['theme']['pathMap'] = array_merge(ViewParams::getPathMap(), $config['components']['view']['theme']['pathMap']);
         }
-        $this->plugins = new Plugins();
-        $this->widgetList = new WidgetList();
+        if (!isset($config['components']['view']['params'])) {
+            $config['components']['view']['params'] = ViewParams::getParams();
+        } else {
+            $config['components']['view']['params'] = array_merge(ViewParams::getParams(), $config['components']['view']['params']);
+        }
 
     }
 
@@ -167,7 +162,7 @@ final class Application extends \yii\web\Application
                 'path' => '@app/storage/data',
             ],
             'assetManager' => [
-              'class' => 'yii\web\AssetManager',
+                'class' => 'yii\web\AssetManager',
                 'bundles' => [
                     'yidas\adminlte\AdminlteAsset' => [
                         'skin' => 'skin-black',
@@ -197,13 +192,13 @@ final class Application extends \yii\web\Application
             ],
             'assetsAutoCompress' =>
                 [
-                    'class'         => '\skeeks\yii2\assetsAuto\AssetsAutoCompressComponent',
+                    'class' => '\skeeks\yii2\assetsAuto\AssetsAutoCompressComponent',
                     'enabled' => false,//  (YII_APP_ID==1)?true:false,
                     'htmlFormatter' => [
                         //Enable compression html
-                        'class'         => 'skeeks\yii2\assetsAuto\formatters\html\TylerHtmlCompressor',
-                        'extra'         => false,       //use more compact algorithm
-                        'noComments'    => true,        //cut all the html comments
+                        'class' => 'skeeks\yii2\assetsAuto\formatters\html\TylerHtmlCompressor',
+                        'extra' => false,       //use more compact algorithm
+                        'noComments' => true,        //cut all the html comments
                         'maxNumberRows' => 50000,       //The maximum number of rows that the formatter runs on
 
                     ],
@@ -225,7 +220,7 @@ final class Application extends \yii\web\Application
                 'ignoreLanguageUrlPatterns' => UrlRules::getIgnoreRules()
             ],
             'i18n' => [
-                'class'=>I18N::class,
+                'class' => I18N::class,
                 'translations' => [
                     'conquer/oauth2' => [
                         'class' => \yii\i18n\PhpMessageSource::class,

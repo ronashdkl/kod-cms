@@ -18,11 +18,11 @@ if (isset($model->languageAttributes) && $model->languageAttributes != null) {
 } else {
     $multipleLanguage = false;
 }
-$this->registerJs("CKEDITOR.plugins.addExternal('btgrid', '/web/ckeditor/btgrid/plugin.js', '');");
-$this->registerJs("CKEDITOR.plugins.addExternal('htmlwriter', '/web/ckeditor/htmlwriter/plugin.js', '');");
-$this->registerJs("CKEDITOR.plugins.addExternal('bootstrapTabs', '/web/ckeditor/bootstrapTabs/plugin.js', '');");
-$this->registerJs("CKEDITOR.plugins.addExternal('pbckcode', '/web/ckeditor/pbckcode/plugin.js', '');");
-$this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckeditor/imageresponsive/plugin.js', '');");
+$this->registerJs("CKEDITOR.plugins.addExternal('btgrid', '/ckeditor/btgrid/plugin.js', '');");
+$this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/ckeditor/imageresponsive/plugin.js', '');");
+
+$post_tab_nav = Yii::$app->hooks->apply_filters('post_tab_nav',[]);
+$post_tab_content = Yii::$app->hooks->apply_filters('post_tab_content',[]);
 
 ?>
 
@@ -50,6 +50,15 @@ $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckedito
                             <?php } ?>
                             <li class=><a href="#mediaDiv" data-toggle="tab"
                                           aria-expanded="true">Media</a></li>
+                            <?php
+                            if($post_tab_nav){
+                                foreach ($post_tab_nav as $id=>$name){
+                                       echo '<li class=><a href="#'.$id.'" data-toggle="tab"
+                                          aria-expanded="true">'.$name.'</a></li>';
+                                }
+                            }
+
+                            ?>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
@@ -78,14 +87,12 @@ $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckedito
                                     'options' => ['rows' => 6],
                                     'preset' => 'advanced',
                                     'clientOptions' => [
-                                        'extraPlugins' => 'btgrid,bootstrapTabs,pbckcode,htmlwriter,imageresponsive',
+                                        'extraPlugins' => 'btgrid,imageresponsive',
                                     ]
                                 ]) ?>
 
+                                <?= $form->field($model, 'tag')->textarea() ?>
 
-
-
-                                <?= $form->field($model, 'price')->textInput() ?>
 
 
                             </div>
@@ -107,7 +114,7 @@ $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckedito
                                                             'options' => ['rows' => 6],
                                                             'preset' => 'full',
                                                             'clientOptions' => [
-                                                                'extraPlugins' => 'btgrid,bootstrapTabs,pbckcode,imageresponsive',
+                                                                'extraPlugins' => 'btgrid,imageresponsive',
 
                                                             ]
                                                         ]);
@@ -150,6 +157,17 @@ $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckedito
                                 ]); ?>
 
                             </div>
+
+                            <?php
+                            if($post_tab_content){
+                                foreach ($post_tab_content as $id=>$template){
+                                    echo '<div class="tab-pane" id="'.$id.'">';
+                                   echo $this->render($template,['form'=>$form,'model'=>$model]);
+                                    echo '</div>';
+                                }
+                            }
+                            ?>
+
                         </div>
 
                     </div>
@@ -196,61 +214,13 @@ $this->registerJs("CKEDITOR.plugins.addExternal('imageresponsive', '/web/ckedito
                             <?= $form->field($model, 'avatar_position')->radioList($model::AVATAR_POSITION) ?>
                             <?= $form->field($model, 'sticky_avatar')->radioList([0=>'No',1=>'Yes']) ?>
 
-                            <?= $form->field($model, 'tag')->textarea() ?>
 
 
                             <div class="row">
-                                <div class="col-sm-12 col-md-4">
-
-                                    <?= $form->field($model, 'published')->checkbox([1 => 'Yes', 0 => 'No']) ?>
-
-
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-
-
-                                    <?= $form->field($model, 'draft')->checkbox([1 => 'Yes', 0 => 'No']) ?>
-
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <?= $form->field($model, 'published_date')->widget(\kartik\date\DatePicker::className(), [
-                                        'value' => date('Y-m-d', strtotime('+2 days')),
-                                        'options' => ['placeholder' => 'Select publish date ...'],
-                                        'pluginOptions' => [
-                                            'format' => 'yyyy-m-d',
-                                            'todayHighlight' => true
-                                        ]
-                                    ]) ?>
-
-
-                                </div>
-                                <div class="col-sm-12 ">
-                                    <?= $form->field($model, 'schedule_date')->widget(\kartik\date\DatePicker::className(), [
-                                        'value' => date('Y-m-d', strtotime('+2 days')),
-                                        'options' => ['placeholder' => 'Select schedule date ...'],
-                                        'pluginOptions' => [
-                                            'format' => 'yyyy-m-d',
-
-                                            'todayHighlight' => true
-                                        ]
-                                    ]) ?>
-                                </div>
 
                             </div>
                             <?= $form->field($model, 'featured')->checkbox([1 => 'Yes', 0 => 'No']) ?>
 
-                            <div class="well">
-
-                                <?php
-                                $lang = Yii::$app->appData->language->list;
-                                $lang[] = Yii::$app->appData->language->default;
-                                echo $form->field($model, 'hide_language')->dropDownList(ArrayHelper::map($lang, 'code', 'name'), ['prompt' => 'Select Language'])->label('Hide in selected language');
-                                ?>
-                            </div>
                         </div>
                         <div class="panel-footer">
                             <div class="form-group">

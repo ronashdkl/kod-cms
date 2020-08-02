@@ -13,7 +13,6 @@ class PostModel extends Post
     public function afterFind()
     {
         parent::afterFind();
-        $this->price = \Yii::$app->formatter->asCurrency($this->price);
         $this->title = ($this->get('title')!=null)?$this->get('title'):$this->title;
         $this->body = ($this->get('body')!=null)?$this->get('body'):$this->body;
         if($this->avatar==null){

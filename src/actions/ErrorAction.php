@@ -9,6 +9,7 @@ class ErrorAction extends \yii\web\ErrorAction
 {
 public function init()
 {
+  $this->view = '@kodCms/views/site/error';
     \Yii::$app->language='en-US';
     parent::init();
 }
