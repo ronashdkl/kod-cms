@@ -22,8 +22,8 @@ $config = new FieldConfig();
 if($group!=null){
 
     $fields = array_filter($fields,function($key) use ($group, $fields){
-        if($fields[$key]['group']==$group){
-                return true;
+        if(isset($fields[$key]['group']) && $fields[$key]['group']==$group){
+            return true;
         }
         return false;
     },ARRAY_FILTER_USE_KEY );
@@ -174,3 +174,4 @@ foreach ($fields as $key => $field) {
 
     }
 }
+

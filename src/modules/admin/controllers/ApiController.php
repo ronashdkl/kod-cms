@@ -36,7 +36,8 @@ class ApiController extends \yii\rest\Controller
                 });
             }
         }
-        $product->images = json_encode($images);
+
+        $product->images = json_encode(array_values($images));
         if ($product->save(false)) {
             return $images;
         }

@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use ronashdkl\kodCms\assets\AppAsset;
 
 AppAsset::register($this);
+\ronashdkl\kodCms\widgets\notify\assets\NotifyAssets::register($this);
 if($this->title==null){
     $this->title = $this->params['config']('name');
 }
@@ -20,19 +21,19 @@ $this->beginPage(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-
     <!-- Site Icons -->
      <meta name="msapplication-TileColor" content="#ff6601">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">-->
     <link rel="icon" href="/images/favicon.png">
     <meta name="theme-color" content="#ff6601">
     <!-- Stylesheets & Fonts -->
     <?php $this->head() ?>
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
+
 <?php $this->beginBody() ?>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v5.0"></script>
+<!--<script async defer crossorigin="anonymous" src="https://connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v5.0"></script>-->
 <!-- Preloader -->
 <div id="kodCms-loading" class="spinner-wrapper">
     <div class="spinner">

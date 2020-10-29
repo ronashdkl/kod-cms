@@ -107,4 +107,25 @@ class Tree extends \kartik\tree\models\Tree
 
     }
 
+
+
+    public function getCatalogs(){
+        return $this->hasMany(self::className(), ['root' => 'id']);
+    }
+
+    public function getRootData()
+    {
+        return $this->hasOne(self::className(),['id'=>'root']);
+    }
+
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Product::className(), ['catalog' => 'id']);
+    }
+
 }

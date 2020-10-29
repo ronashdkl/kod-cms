@@ -4,7 +4,7 @@
  */
 
 use yii\bootstrap\Html;
-use yii\widgets\Pjax;
+
 
 $this->title = Yii::t('app','Plugins');
 $this->params['breadcrumbs'][] = Yii::t('app','Admin');
@@ -43,10 +43,10 @@ $this->params['breadcrumbs'][] = Yii::t('app',$this->title);
                 <td><?=$plugin['meta']['version']?></td>
                 <td>
                     <?php
-                    if($plugin['meta']['installed_at']){
+                    if(isset($plugin['meta']['installed_at'])){
                        echo Html::a($plugin['meta']['status']?'Disable':'Active',['/admin/plugin/status','key'=>$key,],[
                             'class'=>$plugin['meta']['status']?'btn btn-danger':'btn btn-success',
-                           'data-pjax'=>'1',
+                           'data-pjax'=>'0',
                            'data-method'=>'POST'
                         ]);
                        echo " ";

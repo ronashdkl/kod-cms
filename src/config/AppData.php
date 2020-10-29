@@ -17,12 +17,6 @@ class AppData extends Component
     const BEFORE_HOMEPAGE_WIDGET_RENDER = 'homepage_widget_before_render';
     const BEFORE_PAGE_WIDGET_RENDER = 'homepage_widget_before_render';
 
-    const SERVICES = 1; //map from db
-    const TICKET = 2; //map from db
-    const PAGE = 4; //map from db
-    const CLIENT = 6; //map from db
-    const Portfolio = 5; //map from db
-    const TESTIMONIAL = 7; //map from db
     private $logs;
     public $seo;
     public $siteData;
@@ -126,7 +120,10 @@ class AppData extends Component
             $widgetList = Yii::$app->widgetList->getAll();
             $selectedWidgets = [];
             foreach ($this->widgets->home_page_content as $top) {
-                $selectedWidgets[] = $widgetList[$top];
+                if(isset($widgetList[$top])){
+                    $selectedWidgets[] = $widgetList[$top];
+                }
+
             }
 
 
@@ -138,7 +135,7 @@ class AppData extends Component
                         'list' => $selectedWidgets
                     ]);
                 } else {
-                    ;
+
                     echo $content::widget();
                 }
             }

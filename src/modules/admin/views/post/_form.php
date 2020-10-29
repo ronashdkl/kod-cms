@@ -53,7 +53,7 @@ $post_tab_content = Yii::$app->hooks->apply_filters('post_tab_content',[]);
                             <?php
                             if($post_tab_nav){
                                 foreach ($post_tab_nav as $id=>$name){
-                                       echo '<li class=><a href="#'.$id.'" data-toggle="tab"
+                                    echo '<li class=><a href="#'.$id.'" data-toggle="tab"
                                           aria-expanded="true">'.$name.'</a></li>';
                                 }
                             }
@@ -162,7 +162,7 @@ $post_tab_content = Yii::$app->hooks->apply_filters('post_tab_content',[]);
                             if($post_tab_content){
                                 foreach ($post_tab_content as $id=>$template){
                                     echo '<div class="tab-pane" id="'.$id.'">';
-                                   echo $this->render($template,['form'=>$form,'model'=>$model]);
+                                    echo $this->render($template,['form'=>$form,'model'=>$model]);
                                     echo '</div>';
                                 }
                             }
@@ -236,3 +236,4 @@ $post_tab_content = Yii::$app->hooks->apply_filters('post_tab_content',[]);
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+

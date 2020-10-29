@@ -2,6 +2,7 @@
 namespace ronashdkl\kodCms\modules\admin\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class AdminAsset extends AssetBundle
 {
@@ -15,7 +16,7 @@ class AdminAsset extends AssetBundle
         'js/product.js'
     ];
     public $depends = [
-   // 'yidas\adminlte\AdminlteAsset'
+   JqueryAsset::class
     ];
     public $publishOptions = [
         'forceCopy'=>true

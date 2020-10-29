@@ -14,6 +14,7 @@ use ronashdkl\kodCms\widgets\WidgetList;
 use Yii;
 use yii\base\InvalidConfigException;
 
+use yii\base\Widget;
 use yii\i18n\I18N;
 
 final class Application extends \yii\web\Application
@@ -25,15 +26,18 @@ final class Application extends \yii\web\Application
     public $plugins;
     public $widgetListClass;
     public $widgetList;
+    public $pluginList = [];
     public $pluginPath = '@app/plugins';
-
     public function init()
     {
+
         $this->hooks = new Hooks();
         Yii::setAlias('@kodCms', dirname(__DIR__) . "/");
         Yii::setAlias('@kodCmsWeb', dirname(__DIR__) . "/../web/");
         $this->widgetList = $this->widgetListClass ? new $this->widgetListClass() : new WidgetList();
+
         $this->plugins = new Plugins();
+        Yii::$app->kodShortCodes->register();
         parent::init();
 
     }
@@ -48,7 +52,10 @@ final class Application extends \yii\web\Application
      */
     public function preInit(&$config)
     {
+
+
         parent::preInit($config);
+
 
         if (!isset($config['modules']['admin'])) {
             $config['modules']['admin'] = ['class' => 'ronashdkl\kodCms\modules\admin\Module',
@@ -153,6 +160,7 @@ final class Application extends \yii\web\Application
     {
         return array_merge(parent::coreComponents(), [
             'appData' => ['class' => 'ronashdkl\kodCms\config\AppData',],
+            'kodShortCodes'=>['class'=>'ronashdkl\kodCms\components\shortcode\KodShortCodes'],
             'configJson' => [
                 'class' => 'creocoder\flysystem\LocalFilesystem',
                 'path' => '@app/config/json/',

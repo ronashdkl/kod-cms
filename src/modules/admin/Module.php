@@ -75,6 +75,7 @@ final class Module extends \yii\base\Module
             ],
             ['label'=>'Manage Plugins','icon' => 'plug','url' => ['/admin/plugin']],
             ['label'=>'Manage Blocks','icon' => 'list','url' => ['/admin/config/page']],
+            ['label'=>'Short Codes','icon' => 'list','url' => ['/admin/short-code']],
             ['label' => 'Blocks', 'icon' => 'module', 'items' => $this->navigation['blocks']],
             ['label' => 'Social', 'icon' => 'globe', 'items' => $this->navigation['social']],
             ['label' => 'Translate', 'icon' => 'globe','url' => ['/translatemanager']],

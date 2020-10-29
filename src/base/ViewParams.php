@@ -22,7 +22,7 @@ class ViewParams {
     }
     static function getPathMap(){
         return  [
-            '@kodCms/views'=>[
+            '@app/views'=>[
                 '@app/views',
                 '@kodCms/views'
             ],

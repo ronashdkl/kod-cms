@@ -8,6 +8,7 @@ use ronashdkl\kodCms\models\plugin\PluginModel;
 use yii\base\BaseObject;
 use yii\base\Component;
 use yii\base\Exception;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\VarDumper;
 
@@ -114,7 +115,7 @@ class Plugins extends Component
 
          file_put_contents($plugin['configFile'],json_encode($config));
 
-         \Yii::$app->cache->delete('plugins');
+        // \Yii::$app->cache->delete('plugins');
         unset($config);
         unset($plugin);
         /*  if(!$config['status']){
@@ -204,6 +205,8 @@ class Plugins extends Component
                 continue;
             }
         }
+        $plugins = ArrayHelper::merge(\Yii::$app->pluginList, $plugins);
+
        return $plugins;
         /*foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
             echo $dir;
